@@ -9,8 +9,8 @@ public class ObjectManager implements ActionListener{
 
 	Tank tank;
 	
-	ArrayList<Projectile> projectiles= new ArrayList<Projectile>();
-	ArrayList<PowerUps> powerUp= new ArrayList<PowerUps>();
+	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	ArrayList<PowerUps> powerUp = new ArrayList<PowerUps>();
 	
 	Random random = new Random();
 	
@@ -36,7 +36,7 @@ public class ObjectManager implements ActionListener{
 	
 	void addPowerUp() {
 		
-		powerUp.add(new powerUp(random.nextInt(TankWars.WIDTH),0,50,50));
+		powerUp.add(new PowerUps(random.nextInt(TankWars.WIDTH),0,50,50));
 		
 	}
 	
@@ -54,7 +54,7 @@ public class ObjectManager implements ActionListener{
 			projectiles.get(i).update();
 		}
 		
-		if(rocket.isActive = true) {
+		if(tank.isActive = true) {
 			checkCollision();
 			purgeObjects();
 		} 
@@ -93,17 +93,15 @@ public class ObjectManager implements ActionListener{
 	void checkCollision() {
 		
 		for(int i = 0; i < powerUp.size(); i++ ) {
-			for(int i2 = 0; i2 < projectiles.size(); i2++ ) {
-				if(projectiles.get(i2).collisionBox.intersects(powerUp.get(i).collisionBox)) {
-					powerUp.get(i).isActive = false;
-					projectiles.get(i2).isActive = false;
-					score += 1;
-				}
-			}
 			if(tank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
-				System.out.println("2");
-				tank.isActive = false;
 				powerUp.get(i).isActive = false;
+			}
+		}
+		
+		for(int i = 0; i < projectiles.size(); i++ ) {
+			if(tank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
+				projectiles.get(i).isActive = false;
+				tank.isActive = false;
 			}
 		}
 	}

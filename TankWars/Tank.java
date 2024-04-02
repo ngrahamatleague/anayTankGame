@@ -22,14 +22,13 @@ public class Tank extends GameObject{
 		speed = 10;
 		
 		if (needImage) {
-		    loadImage ("rocket.png");
+		    loadImage ("tank.png");
 		}
 	}
 	
 	void draw(Graphics g) {
 		
 		g.setColor(Color.BLUE);
-        //g.fillRect(x, y, width, height);
         
         if (gotImage) {
         	g.drawImage(image, x, y, width, height, null);
@@ -40,7 +39,7 @@ public class Tank extends GameObject{
 	}
 	
 	public void update() {
-		if (right && x < LeagueInvaders.WIDTH - width) {
+		if (right && x < TankWars.WIDTH - width) {
 			right();
 		}
 		
@@ -50,10 +49,9 @@ public class Tank extends GameObject{
 		
 		if (up && y > 0) {
 			up();
-			System.out.println(y);
 		}
 		
-		if (down && y < LeagueInvaders.HEIGHT - height) {
+		if (down && y < TankWars.HEIGHT - height) {
 			down();
 		}
 	}
