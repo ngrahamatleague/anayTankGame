@@ -31,9 +31,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     Timer frameDraw;
     Timer powerUpSpawn;
     
-    Tank tank = new Rocketship(250,700,50,50);
-    
-    ObjectManager objectManager = new ObjectManager(tank);
+    RedTank redTank = new RedTank(250,700,40,50);
+    BlueTank blueTank = new BlueTank(250,700,40,50);
+    ObjectManager objectManager = new ObjectManager(redTank, blueTank);
 
     public GamePanel() {
     	titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -86,10 +86,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		 
 	}
 	void updateGameState() { 
-		tank.update();
+		redTank.update();
+		blueTank.update();
 		objectManager.update();
 		
-		if(tank.isActive == false) {
+		if(objectManager.redScore + objectManager.blueScore == 20) {
 			currentState = END;
 		}
 	}
@@ -103,13 +104,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("LEAGUE INVADERS",23, 100);
+		g.drawString("Tank Wars 2P",23, 100);
 		
 		g.setFont(defaultFont);
 		g.drawString("Press ENTER To Start",152, 400);
 		
 		g.drawString("Press SPACE For Instructions",120, 500);
-		objectManager.score = 0;
+		objectManager.redScore = 0;
+		objectManager.blueScore = 0;
 	}
 	
 	void drawGameState(Graphics g) { 
@@ -121,21 +123,45 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		objectManager.draw(g);
 		
 		g.setFont(defaultFont);
-		g.drawString("Score: " + objectManager.score,10, 20);
+		g.drawString("Score: Red " + objectManager.redScore + " - " + objectManager.blueScore + " Blue",10, 20);
 	}
 	
 	void drawEndState(Graphics g)  { 
-		g.setColor(Color.RED);
-		g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
 		
-		g.setFont(titleFont);
-		g.setColor(Color.YELLOW);
-		g.drawString("GAME OVER",94, 100);
+		if(objectManager.redScore > objectManager.blueScore) {
+			g.setFont(titleFont);
+			g.setColor(Color.WHITE);
+			g.drawString("RED WINS",94, 100);
+			
+			g.setFont(defaultFont);
+			g.setColor(Color.RED);
+			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
+			g.drawString("Red killed blue " + objectManager.redScore + " times", 156, 400);
+		}
 		
-		g.setFont(defaultFont);
-		g.drawString("You Killed " + objectManager.score + " Enemies",156, 400);
+		else if(objectManager.redScore == objectManager.blueScore) {
+			g.setFont(titleFont);
+			g.setColor(Color.WHITE);
+			g.drawString("TIE",94, 100);
+			
+			g.setFont(defaultFont);
+			g.setColor(Color.GRAY);
+			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
+			g.drawString("Both red and blue got a score of " + objectManager.redScore, 156, 400);
+		}
 		
-		g.drawString("Press ENTER To Restart",135, 500);
+		else {
+			g.setFont(titleFont);
+			g.setColor(Color.WHITE);
+			g.drawString("BLUE WINS",94, 100);
+			
+			g.setFont(defaultFont);
+			g.setColor(Color.BLUE);
+			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
+			g.drawString("Blue killed red " + objectManager.blueScore + " times", 156, 400);
+		}
+		
+		g.drawString("Press ENTER To Play Again",135, 500);
 		
 	}
 
@@ -184,66 +210,125 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		if (currentState == GAME) {
 			
+			//blue tank movement
 			if (e.getKeyCode()==KeyEvent.VK_UP) {
 			    System.out.println("UP");
-			    if (tank.y > 0) {
-			    	tank.up = true;
+			    if (blueTank.y > 0) {
+			    	blueTank.up = true;
 				}
 			    else {
-			    	tank.up = false;
+			    	blueTank.up = false;
 			    }
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 			    System.out.println("DOWN");
-			    tank.down = true;
+			    blueTank.down = true;
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 			    System.out.println("LEFT");
-			    if (tank.x > 0) {
-			    	tank.left = true;
+			    if (blueTank.x > 0) {
+			    	blueTank.left = true;
 			    }
 			    else {
-			    	tank.left = false;
+			    	blueTank.left = false;
 			    }
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 			    System.out.println("RIGHT");
-			    if (tank.x < 450) {
-			    	tank.right = true;
+			    if (blueTank.x < 450) {
+			    	blueTank.right = true;
 			    }
 			    else {
-			    	tank.right = false;
+			    	blueTank.right = false;
 			    }
 			}
 			
-			if (e.getKeyCode()==KeyEvent.VK_SPACE) {
-				objectManager.addProjectile(tank.getProjectile());
-				//not working^
+			//red tank movement
+			if (e.getKeyCode()==KeyEvent.VK_W) {
+			    System.out.println("UP");
+			    if (redTank.y > 0) {
+			    	redTank.up = true;
+				}
+			    else {
+			    	redTank.up = false;
+			    }
 			}
 			
+			if (e.getKeyCode()==KeyEvent.VK_S) {
+			    System.out.println("DOWN");
+			    redTank.down = true;
+			}
+			
+			if (e.getKeyCode()==KeyEvent.VK_A) {
+			    System.out.println("LEFT");
+			    if (redTank.x > 0) {
+			    	redTank.left = true;
+			    }
+			    else {
+			    	redTank.left = false;
+			    }
+			}
+			
+			if (e.getKeyCode()==KeyEvent.VK_D) {
+			    System.out.println("RIGHT");
+			    if (redTank.x < 450) {
+			    	redTank.right = true;
+			    }
+			    else {
+			    	redTank.right = false;
+			    }
+			}
+			
+			//shoot
+			if (e.getKeyCode()==KeyEvent.VK_SLASH) {
+				objectManager.addProjectile(blueTank.getProjectile());
+			}
+			
+			if (e.getKeyCode()==KeyEvent.VK_G) {
+				objectManager.addProjectile(redTank.getProjectile());
+			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+		//blue tank key release check
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
-			tank.up = false;
+			blueTank.up = false;
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-			tank.down = false;
+			blueTank.down = false;
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-			tank.left = false;
+			blueTank.left = false;
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-			tank.right = false;
+			blueTank.right = false;
+		}
+		
+		//red tank key release check
+		if (e.getKeyCode()==KeyEvent.VK_W) {
+			redTank.up = false;
+		}
+		
+		if (e.getKeyCode()==KeyEvent.VK_S) {
+			redTank.down = false;
+		}
+		
+		if (e.getKeyCode()==KeyEvent.VK_A) {
+			redTank.left = false;
+		}
+		
+		if (e.getKeyCode()==KeyEvent.VK_D) {
+			redTank.right = false;
 		}
 	}
 

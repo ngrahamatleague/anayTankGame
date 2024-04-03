@@ -7,22 +7,28 @@ import java.util.Random;
 
 public class ObjectManager implements ActionListener{
 
-	Tank tank;
+	RedTank redTank;
+	BlueTank blueTank;
 	
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<PowerUps> powerUp = new ArrayList<PowerUps>();
 	
 	Random random = new Random();
 	
-	int score = 0;
+	int  blueScore = 0;
+	int redScore = 0;
 	
-	public int ObjectManager() {
+	 /*
+	public String returnValue() {
+		
+		String score = redScore + " - " + blueScore;
 		return score;
 	}
+	*/
 	
-	
-	public ObjectManager(Tank tank) {
-		this.tank = tank;
+	public ObjectManager(RedTank redTank, BlueTank blueTank) {
+		this.redTank = redTank;
+		this.blueTank = blueTank;
 	}
 	
 	void addProjectile(Projectile projectile) {
@@ -54,7 +60,7 @@ public class ObjectManager implements ActionListener{
 			projectiles.get(i).update();
 		}
 		
-		if(tank.isActive = true) {
+		if(redTank.isActive == true && blueTank.isActive == true) {
 			checkCollision();
 			purgeObjects();
 		} 
@@ -64,7 +70,8 @@ public class ObjectManager implements ActionListener{
 	
 	void draw(Graphics g) {
 		
-		tank.draw(g);
+		redTank.draw(g);
+		blueTank.draw(g);
 		
 		for(int i = 0; i < powerUp.size(); i++ ) {
 			powerUp.get(i).draw(g);
@@ -93,15 +100,26 @@ public class ObjectManager implements ActionListener{
 	void checkCollision() {
 		
 		for(int i = 0; i < powerUp.size(); i++ ) {
-			if(tank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
+			if(redTank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
+				powerUp.get(i).isActive = false;
+			}
+			else if(blueTank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
 				powerUp.get(i).isActive = false;
 			}
 		}
 		
 		for(int i = 0; i < projectiles.size(); i++ ) {
-			if(tank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
+			if(redTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
 				projectiles.get(i).isActive = false;
-				tank.isActive = false;
+				redTank.isActive = false;
+				blueScore++;
+				System.out.println("blue died");
+			}
+			else if(blueTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
+				projectiles.get(i).isActive = false;
+				blueTank.isActive = false;
+				redScore++;
+				System.out.println("red died");
 			}
 		}
 	}

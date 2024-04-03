@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class Tank extends GameObject{
+public class RedTank extends GameObject{
 	
 	public boolean right = false;
 	public boolean left = false;
@@ -15,14 +15,14 @@ public class Tank extends GameObject{
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
 
-	public Tank(int x, int y, int width, int height) {
+	public RedTank(int x, int y, int width, int height) {
 		
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
-		speed = 10;
+		speed = 2;
 		
 		if (needImage) {
-		    loadImage ("tank.png");
+		    loadImage ("redtank.png");
 		}
 	}
 	
