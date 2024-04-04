@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
 	
-    int currentState = MENU;
+	int currentState = MENU;
     
     Font titleFont;
     Font defaultFont;
@@ -124,6 +124,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		g.setFont(defaultFont);
 		g.drawString("Score: Red " + objectManager.redScore + " - " + objectManager.blueScore + " Blue",10, 20);
+		
+		g.drawRect(250, 700, 20, 20);
 	}
 	
 	void drawEndState(Graphics g)  { 
@@ -212,7 +214,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			
 			//blue tank movement
 			if (e.getKeyCode()==KeyEvent.VK_UP) {
-			    System.out.println("UP");
 			    if (blueTank.y > 0) {
 			    	blueTank.up = true;
 				}
@@ -222,12 +223,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-			    System.out.println("DOWN");
 			    blueTank.down = true;
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-			    System.out.println("LEFT");
 			    if (blueTank.x > 0) {
 			    	blueTank.left = true;
 			    }
@@ -237,7 +236,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-			    System.out.println("RIGHT");
 			    if (blueTank.x < 450) {
 			    	blueTank.right = true;
 			    }
@@ -248,7 +246,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			
 			//red tank movement
 			if (e.getKeyCode()==KeyEvent.VK_W) {
-			    System.out.println("UP");
 			    if (redTank.y > 0) {
 			    	redTank.up = true;
 				}
@@ -258,12 +255,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_S) {
-			    System.out.println("DOWN");
 			    redTank.down = true;
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_A) {
-			    System.out.println("LEFT");
 			    if (redTank.x > 0) {
 			    	redTank.left = true;
 			    }
@@ -273,7 +268,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_D) {
-			    System.out.println("RIGHT");
 			    if (redTank.x < 450) {
 			    	redTank.right = true;
 			    }

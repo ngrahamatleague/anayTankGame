@@ -48,6 +48,8 @@ public class ObjectManager implements ActionListener{
 	
 	void update() {
 		
+		System.out.println(redTank.collisionBox.x);
+		System.out.println(redTank.collisionBox.y);
 		for(int i = 0; i < powerUp.size(); i++) {
 			powerUp.get(i).update();
 			

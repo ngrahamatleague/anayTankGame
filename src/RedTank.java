@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+
 public class RedTank extends GameObject{
 	
 	public boolean right = false;

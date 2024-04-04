@@ -1,5 +1,6 @@
 
 import java.awt.Rectangle;
+import java.awt.Graphics;
 
 public class GameObject {
 
@@ -18,11 +19,16 @@ public class GameObject {
 		this.width = width;
 		this.height = height;
 		collisionBox = new Rectangle(x, y, width, height);
-
+		
+		while(isActive == true) {
+			this.x = x;
+			this.y = y;
+		}
 	}
 	
 	void update() {
 		
 		collisionBox.setBounds(x, y, width, height);
+		
 	}
 }

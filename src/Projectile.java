@@ -29,7 +29,7 @@ public class Projectile extends GameObject{
 	void draw(Graphics g) {
 		
 		g.setColor(Color.RED);
-        g.fillRect(x, y, width, height);
+        g.fillOval(x, y, width, height);
 	}
 	
 	void loadImage(String imageFile) {
