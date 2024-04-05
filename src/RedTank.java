@@ -55,6 +55,8 @@ public class RedTank extends GameObject{
 		if (down && y < TankWars.HEIGHT - height) {
 			down();
 		}
+		
+		super.update();
 	}
 	
 	public void right() {

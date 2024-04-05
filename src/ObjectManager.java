@@ -48,8 +48,6 @@ public class ObjectManager implements ActionListener{
 	
 	void update() {
 		
-		System.out.println(redTank.collisionBox.x);
-		System.out.println(redTank.collisionBox.y);
 		for(int i = 0; i < powerUp.size(); i++) {
 			powerUp.get(i).update();
 			
@@ -113,13 +111,13 @@ public class ObjectManager implements ActionListener{
 		for(int i = 0; i < projectiles.size(); i++ ) {
 			if(redTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
 				projectiles.get(i).isActive = false;
-				redTank.isActive = false;
+				//redTank.isActive = false;
 				blueScore++;
 				System.out.println("blue died");
 			}
 			else if(blueTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
 				projectiles.get(i).isActive = false;
-				blueTank.isActive = false;
+				//blueTank.isActive = false;
 				redScore++;
 				System.out.println("red died");
 			}

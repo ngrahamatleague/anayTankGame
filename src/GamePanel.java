@@ -90,7 +90,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		blueTank.update();
 		objectManager.update();
 		
-		if(objectManager.redScore + objectManager.blueScore == 20) {
+		if((objectManager.redScore >= 15 || objectManager.blueScore >= 15) && Math.abs(objectManager.redScore - objectManager.blueScore) >= 2) {
 			currentState = END;
 		}
 	}
@@ -123,7 +123,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		objectManager.draw(g);
 		
 		g.setFont(defaultFont);
-		g.drawString("Score: Red " + objectManager.redScore + " - " + objectManager.blueScore + " Blue",10, 20);
+		
+		//make it so that it says that u have to win by too if someone has score of 15 and they havent won by 2
+			g.drawString("Score: Red " + objectManager.redScore + " - " + objectManager.blueScore + " Blue",10, 20);
 		
 		g.drawRect(250, 700, 20, 20);
 	}
@@ -131,35 +133,38 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawEndState(Graphics g)  { 
 		
 		if(objectManager.redScore > objectManager.blueScore) {
+			g.setColor(Color.RED);
+			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
+			
 			g.setFont(titleFont);
 			g.setColor(Color.WHITE);
 			g.drawString("RED WINS",94, 100);
 			
 			g.setFont(defaultFont);
-			g.setColor(Color.RED);
-			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
 			g.drawString("Red killed blue " + objectManager.redScore + " times", 156, 400);
 		}
 		
 		else if(objectManager.redScore == objectManager.blueScore) {
+			g.setColor(Color.GRAY);
+			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
+			
 			g.setFont(titleFont);
 			g.setColor(Color.WHITE);
 			g.drawString("TIE",94, 100);
 			
 			g.setFont(defaultFont);
-			g.setColor(Color.GRAY);
-			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
 			g.drawString("Both red and blue got a score of " + objectManager.redScore, 156, 400);
 		}
 		
 		else {
+			g.setColor(Color.BLUE);
+			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
+			
 			g.setFont(titleFont);
 			g.setColor(Color.WHITE);
 			g.drawString("BLUE WINS",94, 100);
 			
 			g.setFont(defaultFont);
-			g.setColor(Color.BLUE);
-			g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
 			g.drawString("Blue killed red " + objectManager.blueScore + " times", 156, 400);
 		}
 		
@@ -183,7 +188,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			 updateEndState();
 		 }
 		 
-		 //System.out.println("action");
 		 repaint();
 	}
 

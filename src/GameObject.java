@@ -20,10 +20,12 @@ public class GameObject {
 		this.height = height;
 		collisionBox = new Rectangle(x, y, width, height);
 		
+		/*
 		while(isActive == true) {
 			this.x = x;
 			this.y = y;
 		}
+		*/
 	}
 	
 	void update() {
