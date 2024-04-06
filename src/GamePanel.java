@@ -124,8 +124,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		g.setFont(defaultFont);
 		
-		//make it so that it says that u have to win by too if someone has score of 15 and they havent won by 2
+		if((objectManager.redScore >= 15 || objectManager.blueScore >= 15) && !(Math.abs(objectManager.redScore - objectManager.blueScore) >= 2)) {
+			
+			g.drawString("Score: Red " + objectManager.redScore + " - " + objectManager.blueScore + " Blue (2 point advantage needed to win)",10, 20);
+		}
+		
+		else {
+			
 			g.drawString("Score: Red " + objectManager.redScore + " - " + objectManager.blueScore + " Blue",10, 20);
+		}
 		
 		g.drawRect(250, 700, 20, 20);
 	}
