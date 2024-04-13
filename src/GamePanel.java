@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		frameDraw.start();
 		 
 		if (needImage) {
-			 loadImage("space.png");
+			 loadImage("tankwarslogo.png");
 		}
 
 	}
@@ -99,12 +99,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void drawMenuState(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
+		
+		g.drawImage(image, 150, 205, 502, 192, null);
 		
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("Tank Wars 2P",23, 100);
+		
 		
 		g.setFont(defaultFont);
 		g.drawString("Press ENTER To Start",152, 400);
@@ -117,7 +120,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) { 
 		g.setColor(Color.BLACK);
 		 
-		g.drawImage(image, 0, 0, TankWars.WIDTH, TankWars.HEIGHT, null);
 		g.setFont(titleFont);
 		
 		objectManager.draw(g);
