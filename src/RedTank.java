@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -11,10 +12,14 @@ public class RedTank extends GameObject{
 	public boolean left = false;
 	public boolean up = false;
 	public boolean down = false;
+	public boolean rotatingLeft = false;
+	public boolean rotatingRight = false;
 	
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
+	
+	double angle = 0.0;
 
 	public RedTank(int x, int y, int width, int height) {
 		
@@ -30,12 +35,21 @@ public class RedTank extends GameObject{
 	void draw(Graphics g) {
 		
 		g.setColor(Color.BLUE);
+        Graphics2D g2 = (Graphics2D)g;
+        
+        g2.rotate(angle, x+width/2, y+height/2);
         
         if (gotImage) {
         	g.drawImage(image, x, y, width, height, null);
         } else {
         	g.setColor(Color.BLUE);
         	g.fillRect(x, y, width, height);
+        }
+        
+        g2.rotate(-angle, x+width/2, y+height/2);
+        
+        if(rotatingLeft == true) {
+        	//g2.rotate -= 0.05; not working
         }
 	}
 	

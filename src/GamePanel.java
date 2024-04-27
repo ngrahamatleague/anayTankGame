@@ -272,12 +272,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_A) {
-			    if (redTank.x > 0) {
-			    	redTank.left = true;
-			    }
-			    else {
-			    	redTank.left = false;
-			    }
+//			    if (redTank.x > 0) {
+//			    	redTank.left = true;
+//			    }
+//			    else {
+//			    	redTank.left = false;
+//			    }
+				redTank.rotatingLeft = true;
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_D) {
@@ -332,6 +333,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		if (e.getKeyCode()==KeyEvent.VK_A) {
 			redTank.left = false;
+			redTank.rotatingLeft = false;
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_D) {
