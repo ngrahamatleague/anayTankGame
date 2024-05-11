@@ -102,17 +102,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, TankWars.WIDTH, TankWars.HEIGHT);
 		
-		g.drawImage(image, 150, 205, 502, 192, null);
+		g.drawImage(image, 190, 170, 502, 192, null);
 		
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("Tank Wars 2P",23, 100);
+		g.drawString("Tank Wars 2P",235, 100);
 		
 		
 		g.setFont(defaultFont);
-		g.drawString("Press ENTER To Start",152, 400);
+		g.drawString("Press ENTER To Start",292, 445);
 		
-		g.drawString("Press SPACE For Instructions",120, 500);
+		g.drawString("Press SPACE For Instructions",260, 500);
 		objectManager.redScore = 0;
 		objectManager.blueScore = 0;
 	}
@@ -240,21 +240,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-			    if (blueTank.x > 0) {
-			    	blueTank.left = true;
-			    }
-			    else {
-			    	blueTank.left = false;
-			    }
+			    blueTank.rotatingLeft = true;
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-			    if (blueTank.x < 450) {
-			    	blueTank.right = true;
-			    }
-			    else {
-			    	blueTank.right = false;
-			    }
+				blueTank.rotatingRight = true;
 			}
 			
 			//red tank movement
@@ -272,22 +262,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_A) {
-//			    if (redTank.x > 0) {
-//			    	redTank.left = true;
-//			    }
-//			    else {
-//			    	redTank.left = false;
-//			    }
 				redTank.rotatingLeft = true;
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_D) {
-			    if (redTank.x < 450) {
-			    	redTank.right = true;
-			    }
-			    else {
-			    	redTank.right = false;
-			    }
+				redTank.rotatingRight = true;
 			}
 			
 			//shoot
@@ -315,11 +294,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-			blueTank.left = false;
+			blueTank.rotatingLeft = false;
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-			blueTank.right = false;
+			blueTank.rotatingRight = false;
 		}
 		
 		//red tank key release check
@@ -332,12 +311,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_A) {
-			redTank.left = false;
 			redTank.rotatingLeft = false;
 		}
 		
 		if (e.getKeyCode()==KeyEvent.VK_D) {
-			redTank.right = false;
+			redTank.rotatingRight = false;
 		}
 	}
 

@@ -49,7 +49,11 @@ public class RedTank extends GameObject{
         g2.rotate(-angle, x+width/2, y+height/2);
         
         if(rotatingLeft == true) {
-        	//g2.rotate -= 0.05; not working
+        	angle -= 0.05;
+        }
+        
+        if(rotatingRight == true) {
+        	angle += 0.05;
         }
 	}
 	
