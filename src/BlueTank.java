@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.lang.Math;
 
 import javax.imageio.ImageIO;
 
@@ -55,6 +56,7 @@ public class BlueTank extends GameObject{
         if(rotatingRight == true) {
         	angle += 0.05;
         }
+       
 	}
 	
 	public void update() {
@@ -78,19 +80,21 @@ public class BlueTank extends GameObject{
 	}
 	
 	public void right() {
-        x+=speed;
+        x+=Math.sin(angle);
     }
 	
 	public void left() {
-        x-=speed;
+        x-=Math.sin(angle);
     }
 	
 	public void up() {
-        y-=speed;
+        y-=Math.s(angle)*5;
+        System.out.println(Math.cos(angle));
     }
 	
 	public void down() {
-        y+=speed;
+        y+=Math.cos(angle);
+        System.out.println(Math.cos(angle));
     }
 	
 	void loadImage(String imageFile) {
