@@ -48,6 +48,10 @@ public class ObjectManager implements ActionListener{
 	
 	void update() {
 		
+		redTank.update();
+		blueTank.update();
+		
+		
 		for(int i = 0; i < powerUp.size(); i++) {
 			powerUp.get(i).update();
 			
@@ -99,29 +103,29 @@ public class ObjectManager implements ActionListener{
 	
 	void checkCollision() {
 		
-		for(int i = 0; i < powerUp.size(); i++ ) {
-			if(redTank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
-				powerUp.get(i).isActive = false;
-			}
-			else if(blueTank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
-				powerUp.get(i).isActive = false;
-			}
-		}
-		
-		for(int i = 0; i < projectiles.size(); i++ ) {
-			if(redTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
-				projectiles.get(i).isActive = false;
-				//redTank.isActive = false;
-				blueScore++;
-				System.out.println("blue died");
-			}
-			else if(blueTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
-				projectiles.get(i).isActive = false;
-				//blueTank.isActive = false;
-				redScore++;
-				System.out.println("red died");
-			}
-		}
+//		for(int i = 0; i < powerUp.size(); i++ ) {
+//			if(redTank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
+//				powerUp.get(i).isActive = false;
+//			}
+//			else if(blueTank.collisionBox.intersects(powerUp.get(i).collisionBox)) {
+//				powerUp.get(i).isActive = false;
+//			}
+//		}
+//		
+//		for(int i = 0; i < projectiles.size(); i++ ) {
+//			if(redTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
+//				projectiles.get(i).isActive = false;
+//				//redTank.isActive = false;
+//				blueScore++;
+//				System.out.println("blue died");
+//			}
+//			else if(blueTank.collisionBox.intersects(projectiles.get(i).collisionBox)) {
+//				projectiles.get(i).isActive = false;
+//				//blueTank.isActive = false;
+//				redScore++;
+//				System.out.println("red died");
+//			}
+//		}
 	}
 
 	@Override

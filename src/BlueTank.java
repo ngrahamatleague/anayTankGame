@@ -47,7 +47,12 @@ public class BlueTank extends GameObject{
 			g2.setColor(Color.BLUE);
 			g.fillRect(x, y, width, height);
 		}
-
+		g2.drawRect(collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height);
+//		g2.setColor(Color.BLUE);
+//		g2.fillRect(x+width/2, y+height/2, width, height);
+		
+		
+		
 		g2.rotate(-radian, x+width/2, y+height/2);
 
 
@@ -95,35 +100,59 @@ public class BlueTank extends GameObject{
 		
 	}
 
-	public void up(int oneForForward) {
-	
-		System.out.println(angle);
+	double calcDx() {
 		double radian = Math.toRadians(angle);
 		double dx = 0;
-		double dy = 0;
+		
 		if(angle>=0 && angle <=90   || angle <= 0 && angle >= -90) {
 			 dx = Math.cos(radian);
-			 dy = Math.sin(radian);
 		}
 
 		if(angle >90 && angle <= 180 || angle < -90 && angle >= -180 ) {
 			 dx = -Math.cos(Math.PI - radian);
-			 dy = Math.sin(Math.PI - radian);
 		}
 		
 		
 		if(angle >180 && angle <= 270 || angle < -180 && angle >= -270) {
 			 dx = -Math.sin(3*Math.PI/2 - radian);
-			 dy = -Math.cos(3*Math.PI/2 - radian);
 		}
 		
 		if(angle >270 && angle < 360 ||  angle < -270 && angle > -360) {
 			 dx = Math.cos(2*Math.PI - radian);
-			 dy = -Math.sin(2*Math.PI - radian);
+		}
+		return dx;
+	}
+	
+	double calcDy() {
+		
+		double radian = Math.toRadians(angle);
+
+		double dy = 0;
+		if(angle>=0 && angle <=90   || angle <= 0 && angle >= -90) {
+			 dy = Math.sin(radian);
 		}
 
-		x += dx*5*oneForForward;
-		y += dy*5*oneForForward;
+		if(angle >90 && angle <= 180 || angle < -90 && angle >= -180 ) {
+			 dy = Math.sin(Math.PI - radian);
+		}
+		
+		if(angle >180 && angle <= 270 || angle < -180 && angle >= -270) {
+			 dy = -Math.cos(3*Math.PI/2 - radian);
+		}
+		
+		if(angle >270 && angle < 360 ||  angle < -270 && angle > -360) {
+			 dy = -Math.sin(2*Math.PI - radian);
+		}
+		
+		return  dy;
+		
+	}
+	
+	public void up(int oneForForward) {
+	
+	
+		x += calcDx()*5*oneForForward;
+		y += calcDy()*5*oneForForward;
 
 
 	}
@@ -146,6 +175,6 @@ public class BlueTank extends GameObject{
 
 	public Projectile getProjectile() {
 
-		return new Projectile(x+width/2, y, 10, 10);
+		return new Projectile(x+width/2 - 5, y+height/2 -5, 10, 10, calcDx(), calcDy());
 	} 
 }
